@@ -7,7 +7,12 @@ lazy val root = project
     name := "Modulo12",
     version := "0.1.0",
 
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test",
+    // Extra Maven repositories
+    resolvers += "JFugue Repository" at "https://maven.sing-group.org/repository/maven/",
+
+    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.2",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.2" % "test",
+    libraryDependencies += "jfugue" % "jfugue" % "5.0.9",
 
     // To make the default compiler and REPL use Dotty
     scalaVersion := dottyVersion,

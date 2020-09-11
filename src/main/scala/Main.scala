@@ -1,11 +1,5 @@
-
 object Main {
-
   def main(args: Array[String]): Unit = {
-    println("Hello world!")
-    println(msg)
+    println("Welcome to Modulo12!!!!")
   }
-
-  def msg = "I was compiled by dotty :)"
-
 }

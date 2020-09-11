@@ -1,3 +1,5 @@
+.dotty-ide-artifact
+.dotty-ide.json
 
 DS_Store
 *.class
@@ -26,4 +28,3 @@ classes/
 .idea
 .idea_modules
 /.worksheet/
-
