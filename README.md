@@ -15,6 +15,9 @@ sbt compile
 # Run tests
 sbt test
 
+# Format files
+sbt scalafmt
+
 # This command launches VS Code for development. 
 # I am not proscribing using VSCode, but dotty and sbt supports it natively.
 sbt launchIDE
