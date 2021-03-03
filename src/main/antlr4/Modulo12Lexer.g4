@@ -1,6 +1,12 @@
 lexer grammar Modulo12Lexer;
 
-fragment DIGIT : [0-9];
-fragment PLUS: '+' ;
-fragment NUMBER: DIGIT+;
-fragment WHITESPACE : ' ' -> skip ;
+AND: 'and' | '&&';
+ARTIST_NAME: 'Aritst_Name' | 'Artist' | 'Artist Name';
+EQ: '=';
+FROM: 'from';
+ID: ('a'..'z' | 'A' .. 'Z' | '_')+ ;
+NOT: 'not';
+OR: 'or' | '||';
+SELECT: 'select';
+SEMI: ';';
+WHERE: 'where';
