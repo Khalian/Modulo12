@@ -1,10 +1,10 @@
 package org.modulo12.midi
 
 import java.io.File
-
-import javax.sound.midi.{ InvalidMidiDataException, Sequence }
-import org.jfugue.midi.{ MidiFileManager, MidiParser }
-import org.modulo12.coremodels.{ Song, SongData, SongMetadata }
+import javax.sound.midi.{InvalidMidiDataException, Sequence}
+import org.jfugue.midi.{MidiFileManager, MidiParser}
+import org.modulo12.coremodels.{Song, SongData, SongMetadata, SongsToAnalyze}
+import org.modulo12.midi.MidiFileParseResult.Success
 
 sealed trait MidiFileParseResult
 object MidiFileParseResult {
@@ -14,21 +14,34 @@ object MidiFileParseResult {
 }
 
 object MidiParser {
-  val parser = new MidiParser
+  val parser         = new MidiParser
   val midiExtensions = List("mid")
   
+  def parseAllFiles(directory: File): List[Song] = {
+    val midiFiles = MidiParser.getAllMidiFilesUnderDir(directory)
+    val songs = midiFiles
+      .map(midiFile => (midiFile, MidiParser.parseMidiFile(midiFile)))
+      .flatMap { case (midiFile, song) =>
+        song match {
+          case Success(sequence) =>
+            val (songMeta, songData) = MidiParser.parseSongFromMidiSequence(sequence)
+            List(Song(midiFile.getName, songMeta, songData))
+          case _ => List()
+        }
+      }
+    songs
+  }
+
   // TODO: Ideally we should be checking the magic number of the midi files, I will write that code in at a later date.
-  def getAllMidiFilesUnderDir(dir: File): List[File] = {
-    if (dir.exists && dir.isDirectory) {
+  def getAllMidiFilesUnderDir(dir: File): List[File] =
+    if (dir.exists && dir.isDirectory)
       dir.listFiles.filter(_.isFile).toList.filter { file =>
         midiExtensions.exists(file.getName.endsWith(_))
       }
-    } else {
+    else
       List[File]()
-    }
-  }
 
-  def parseMidiFile(midiFile: File): MidiFileParseResult = {
+  def parseMidiFile(midiFile: File): MidiFileParseResult =
     if (midiFile.exists())
       try {
         val sequence = MidiFileManager.load(midiFile)
@@ -38,9 +51,8 @@ object MidiParser {
       }
     else
       MidiFileParseResult.NotFound(midiFile.getAbsolutePath)
-  }
 
-  def parseSongFromMidiSequence(sequence: Sequence): Song = {
+  def parseSongFromMidiSequence(sequence: Sequence): (SongMetadata, SongData) = {
     val listener = new SongParserListener
     parser.addParserListener(listener)
     parser.parse(sequence)
@@ -51,6 +63,6 @@ object MidiParser {
       listener.instrumentNames.toSet
     )
     val data = SongData(listener.notes.toList, listener.chords.toList)
-    Song(metadata, data)
+    (metadata, data)
   }
 }

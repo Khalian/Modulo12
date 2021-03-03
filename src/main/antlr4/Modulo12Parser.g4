@@ -9,8 +9,8 @@ options {
 
 sql_statement:
 		select_key
+		input_name
 		from_clause
-		where_clause
 		SEMI
 		;
 
@@ -18,30 +18,12 @@ select_key:
 		SELECT
 	;
 
+input_name:
+        MIDI
+    ;
+
 from_clause:
         FROM directory_name
-    ;
-
-where_clause:
-        WHERE expression
-    ;
-
-expression:
-		simple_expression (expr_op simple_expression)*
-	;
-
-expr_op:
-        AND | OR | NOT
-    ;
-
-// TODO: Add other branches for simple expression
-simple_expression:
-		detail EQ |
-	;
-
-// TODO: Add other criteria
-detail :
-        ARTIST_NAME
     ;
 
 directory_name:

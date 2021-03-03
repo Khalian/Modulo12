@@ -12,6 +12,16 @@ object ScaleType {
   case object MAJOR   extends ScaleType;
   case object MINOR   extends ScaleType;
   case object UNKNOWN extends ScaleType;
+
+  def fromString(value: String): ScaleType = {
+    val valueUpper = value.toUpperCase()
+    if (value.equals("MAJOR"))
+      MAJOR
+    else if (value.equals("MINOR"))
+      MINOR
+    else
+      UNKNOWN
+  }
 }
 
 case class KeySignature(key: Integer, scaleType: ScaleType)
@@ -26,4 +36,4 @@ case class SongMetadata(
     instrumentNames: Set[String]
 )
 
-case class Song(metadata: SongMetadata, data: SongData)
+case class Song(filePath: String, metadata: SongMetadata, data: SongData)
