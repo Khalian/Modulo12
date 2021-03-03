@@ -10,3 +10,6 @@ lazy val root = project
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.5" % "test",
     scalaVersion := "3.0.0-RC1"
   )
+
+enablePlugins(Antlr4Plugin)
+antlr4PackageName in Antlr4 := Some("org.modulo12")

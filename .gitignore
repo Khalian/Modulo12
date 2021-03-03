@@ -28,3 +28,6 @@ classes/
 .idea
 .idea_modules
 /.worksheet/
+gen/
+.bsp
+src/main/antlr4/Modulo12Lexer.tokens

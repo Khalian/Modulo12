@@ -1,0 +1,2 @@
+parser grammar Modulo12Parser;
+operation  : WHITESPACE* NUMBER WHITESPACE* PLUS WHITESPACE* NUMBER;
