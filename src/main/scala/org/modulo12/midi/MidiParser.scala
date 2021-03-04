@@ -15,18 +15,29 @@ object MidiFileParseResult {
 
 object MidiParser {
   val parser = new MidiParser
+  val midiExtensions = List("mid")
+  
+  // TODO: Ideally we should be checking the magic number of the midi files, I will write that code in at a later date.
+  def getAllMidiFilesUnderDir(dir: File): List[File] = {
+    if (dir.exists && dir.isDirectory) {
+      dir.listFiles.filter(_.isFile).toList.filter { file =>
+        midiExtensions.exists(file.getName.endsWith(_))
+      }
+    } else {
+      List[File]()
+    }
+  }
 
-  def parseMidiFile(path: String): MidiFileParseResult = {
-    val file = new File(path)
-    if (file.exists())
+  def parseMidiFile(midiFile: File): MidiFileParseResult = {
+    if (midiFile.exists())
       try {
-        val sequence = MidiFileManager.load(file)
+        val sequence = MidiFileManager.load(midiFile)
         MidiFileParseResult.Success(sequence)
       } catch {
-        case _: InvalidMidiDataException => MidiFileParseResult.NotMidi(path)
+        case _: InvalidMidiDataException => MidiFileParseResult.NotMidi(midiFile.getAbsolutePath)
       }
     else
-      MidiFileParseResult.NotFound(path)
+      MidiFileParseResult.NotFound(midiFile.getAbsolutePath)
   }
 
   def parseSongFromMidiSequence(sequence: Sequence): Song = {

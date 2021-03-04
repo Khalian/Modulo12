@@ -4,30 +4,31 @@ import flatspec._
 import matchers._
 import org.modulo12.coremodels.{KeySignature, ScaleType, TimeSignature}
 
+import java.io.File
 import scala.language.implicitConversions
 
 class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
-  val midiFilePath = "resources/testmidifiles/MIDI_sample.mid"
+  val midiFile = new File("resources/testmidifiles/MIDI_sample.mid")
 
   "parse midi file" should "return FileNotFound for a non exitent file" in {
     val path = "resources/testmidifiles/nonexistent"
-    val result = MidiParser.parseMidiFile(path)
+    val result = MidiParser.parseMidiFile(new File(path))
     result should matchPattern { case MidiFileParseResult.NotFound(path) => }
   }
 
   "it" should "Not Midi for files that are not midi" in {
     val path = "resources/testmidifiles/filefornegativetest"
-    val result = MidiParser.parseMidiFile(path)
+    val result = MidiParser.parseMidiFile(new File(path))
     result should matchPattern { case MidiFileParseResult.NotMidi(path) => }
   }
 
   "it" should "Succes for files that are midi" in {
-    val result = MidiParser.parseMidiFile(midiFilePath)
+    val result = MidiParser.parseMidiFile(midiFile)
     result should matchPattern { case MidiFileParseResult.Success(_) => }
   }
 
   "parse midi sequence" should "parse midi sequence correctly for a midi file" in {
-    val result = MidiParser.parseMidiFile(midiFilePath)
+    val result = MidiParser.parseMidiFile(midiFile)
     inside(result) { case MidiFileParseResult.Success(sequence) =>
       val song = MidiParser.parseSongFromMidiSequence(sequence)
       val songMeta = song.metadata
@@ -41,5 +42,15 @@ class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
       songData.chords.size should be(0)
       songData.notes.size should be(1651)
     }
+  }
+  
+  "get midi files under directory" should "return midi files correctly for a valid directory" in {
+    val result = MidiParser.getAllMidiFilesUnderDir(new File("resources/testmidifiles")).map(file => file.getName)
+    result should equal(List("MIDI_sample.mid"))
+  }
+  
+  "get midi files under directory" should "return empty list invalid directory" in {
+    val result = MidiParser.getAllMidiFilesUnderDir(new File("resources/invalidDirectory")).map(file => file.getName)
+    result should equal(List())
   }
 }
