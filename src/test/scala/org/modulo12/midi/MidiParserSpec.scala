@@ -34,7 +34,7 @@ class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
         val (songMeta, songData) = MidiParser.parseSongFromMidiSequence(sequence)
         songMeta.timeSig should be(Some(TimeSignature(4, 2)))
         songMeta.instrumentNames should contain allOf ("Electric_Jazz_Guitar", "Piano", "Electric_Bass_Finger")
-        songMeta.temposBPM should be(List(120))
+        songMeta.temposBPM should be(Set(120))
         // TODO: This nees more thorough testing.
         songMeta.keySignature should be(None)
 

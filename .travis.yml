@@ -7,9 +7,7 @@ cache:
     - $HOME/.sbt/boot/
 
 jdk:
-  - openjdk11
+  - openjdk14
 
 script:
-  ## This runs the template with the default parameters, and runs test within the templated app.
   - sbt -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=256M test
-  - sbt +run +test
