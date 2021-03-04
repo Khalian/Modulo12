@@ -1,4 +1,4 @@
-package org.modulo12.coremodels
+package org.modulo12.core
 
 sealed trait SqlSubQueryResult
 

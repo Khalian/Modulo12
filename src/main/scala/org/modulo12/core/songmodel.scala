@@ -1,6 +1,5 @@
-package org.modulo12.coremodels
+package org.modulo12.core
 
-// TODO: Decouple from jfugue's theory models, we should be able to swap jfugue later on if we have to
 import org.jfugue.theory.{ Chord, Note }
 
 // Song data

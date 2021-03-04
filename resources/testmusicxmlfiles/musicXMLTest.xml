@@ -1,0 +1,130 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE score-partwise PUBLIC
+        "-//Recordare//DTD MusicXML Partwise//EN"
+        "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise>
+    <part-list>
+        <score-part id="P1">
+            <part-name>Voice</part-name>
+        </score-part>
+    </part-list>
+    <part id="P1">
+        <measure number="0" implicit="yes">
+            <attributes>
+                <divisions>4</divisions>
+                <key>
+                    <fifths>-3</fifths>
+                    <mode>major</mode>
+                </key>
+                <time>
+                    <beats>2</beats>
+                    <beat-type>4</beat-type>
+                </time>
+                <clef>
+                    <sign>G</sign>
+                    <line>2</line>
+                </clef>
+                <directive>Langsam, innig.</directive>
+            </attributes>
+            <note>
+                <pitch>
+                    <step>G</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>2</duration>
+                <type>eighth</type>
+                <stem>up</stem>
+                <notations>
+                    <dynamics>
+                        <p/>
+                    </dynamics>
+                </notations>
+                <lyric>
+                    <syllabic>single</syllabic>
+                    <text>something</text>
+                </lyric>
+            </note>
+        </measure>
+        <measure number="1">
+            <note>
+                <pitch>
+                    <step>F</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>3</duration>
+                <type>eighth</type>
+                <dot/>
+                <stem>up</stem>
+                <lyric>
+                    <syllabic>single</syllabic>
+                    <text>du</text>
+                </lyric>
+            </note>
+            <note>
+                <pitch>
+                    <step>E</step>
+                    <alter>-1</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>1</duration>
+                <type>16th</type>
+                <stem>up</stem>
+                <lyric>
+                    <syllabic>single</syllabic>
+                    <text>nicht,</text>
+                </lyric>
+            </note>
+            <note>
+                <pitch>
+                    <step>E</step>
+                    <alter>-1</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>2</duration>
+                <type>eighth</type>
+                <stem>up</stem>
+                <lyric>
+                    <syllabic>begin</syllabic>
+                    <text>heil</text>
+                </lyric>
+            </note>
+            <note>
+                <pitch>
+                    <step>B</step>
+                    <alter>-1</alter>
+                    <octave>4</octave>
+                </pitch>
+                <duration>1</duration>
+                <type>16th</type>
+                <stem>up</stem>
+                <beam number="1">begin</beam>
+                <beam number="2">begin</beam>
+                <notations>
+                    <slur type="start" number="1"/>
+                </notations>
+                <lyric>
+                    <syllabic>end</syllabic>
+                    <text>ger</text>
+                    <extend/>
+                </lyric>
+            </note>
+            <note>
+                <pitch>
+                    <step>G</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>1</duration>
+                <type>16th</type>
+                <stem>up</stem>
+                <beam number="1">end</beam>
+                <beam number="2">end</beam>
+                <notations>
+                    <slur type="stop" number="1"/>
+                </notations>
+                <lyric>
+                    <extend/>
+                </lyric>
+            </note>
+        </measure>
+    </part>
+</score-partwise>

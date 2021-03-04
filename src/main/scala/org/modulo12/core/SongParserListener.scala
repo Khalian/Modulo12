@@ -1,8 +1,9 @@
-package org.modulo12.midi
+package org.modulo12.core
+
 import org.jfugue.midi.MidiDictionary
 import org.jfugue.parser.ParserListenerAdapter
-import org.jfugue.theory.{ Chord, Note }
-import org.modulo12.coremodels.{ KeySignature, ScaleType, TimeSignature }
+import org.jfugue.theory.{Chord, Note}
+import org.modulo12.core.{KeySignature, ScaleType, TimeSignature}
 
 import scala.collection.mutable
 
