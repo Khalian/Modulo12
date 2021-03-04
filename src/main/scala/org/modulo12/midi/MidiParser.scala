@@ -57,12 +57,12 @@ object MidiParser {
     parser.addParserListener(listener)
     parser.parse(sequence)
     val metadata = SongMetadata(
-      listener.temposBPM.toList,
+      listener.temposBPM.toSet,
       listener.keySignature,
       listener.timeSignature,
       listener.instrumentNames.toSet
     )
-    val data = SongData(listener.notes.toList, listener.chords.toList)
+    val data = SongData(listener.notes.toList.distinct, listener.chords.toList.distinct)
     (metadata, data)
   }
 }
