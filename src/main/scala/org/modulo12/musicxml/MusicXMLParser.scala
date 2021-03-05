@@ -28,9 +28,8 @@ class MusicXMLParser extends MusicFileParser {
         val (songMeta, songData) = extractSongDataFromListener(listener)
         ParseFileResult.Success(Song(musicXmlFile.getName, songMeta, songData))
       } catch {
-        case e: ParsingException => {
+        case e: ParsingException =>
           ParseFileResult.IncorrectFileType(musicXmlFile.getAbsolutePath, FileType.MusicXML)
-        }
       }
     else
       ParseFileResult.FileNotFound(musicXmlFile.getAbsolutePath)

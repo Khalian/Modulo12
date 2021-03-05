@@ -2,8 +2,8 @@ package org.modulo12.core
 
 import org.jfugue.midi.MidiDictionary
 import org.jfugue.parser.ParserListenerAdapter
-import org.jfugue.theory.{Chord, Note}
-import org.modulo12.core.{KeySignature, ScaleType, TimeSignature}
+import org.jfugue.theory.{ Chord, Note }
+import org.modulo12.core.{ KeySignature, ScaleType, TimeSignature }
 
 import scala.collection.mutable
 
@@ -38,7 +38,7 @@ class SongParserListener extends ParserListenerAdapter {
     val instrumentName = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(instrument)
     instrumentNames.add(instrumentName)
   }
-  
+
   override def onTimeSignatureParsed(numerator: Byte, powerOfTwo: Byte): Unit =
     timeSignature = Option(TimeSignature(numerator.toInt, powerOfTwo.toInt))
 }
