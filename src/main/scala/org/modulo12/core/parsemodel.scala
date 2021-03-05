@@ -40,12 +40,10 @@ trait MusicFileParser {
   // TODO: Ideally we should be checking the magic number of these files,
   //  I will write that code in at a later date. Currently just using extensions
   def getAllFilesUnderDirectory(dir: File): List[File] =
-    if (dir.exists && dir.isDirectory)
-      dir.listFiles.filter(_.isFile).toList.filter { file =>
-        fileExtensions().exists(file.getName.endsWith(_))
-      }
-    else
-      List[File]()
+    getFileTree(dir)
+      .filter(_.isFile)
+      .filter(file => fileExtensions().exists(file.getName.endsWith(_)))
+      .toList
 
   def extractSongDataFromListener(listener: SongParserListener): (SongMetadata, SongData) = {
     val metadata = SongMetadata(
@@ -57,4 +55,9 @@ trait MusicFileParser {
     val data = SongData(listener.notes.toList.distinct, listener.chords.toList.distinct)
     (metadata, data)
   }
+
+  // https://stackoverflow.com/questions/2637643/how-do-i-list-all-files-in-a-subdirectory-in-scala
+  private def getFileTree(f: File): LazyList[File] =
+    f #:: (if (f.isDirectory) f.listFiles().to(LazyList).flatMap(getFileTree)
+           else LazyList.empty)
 }
