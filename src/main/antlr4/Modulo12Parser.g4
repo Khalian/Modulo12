@@ -11,6 +11,7 @@ sql_statement:
 		select_key
 		input_list_clause
 		from_clause
+		(where_clause)?
 		SEMI
     ;
 
@@ -28,6 +29,14 @@ select_key:
 
 from_clause:
         FROM directory_name
+    ;
+
+where_clause:
+        WHERE simple_expression
+    ;
+
+simple_expression:
+        SCALE EQ SCALE_TYPE
     ;
 
 directory_name:

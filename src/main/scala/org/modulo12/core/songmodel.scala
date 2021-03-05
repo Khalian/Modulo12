@@ -14,9 +14,9 @@ object ScaleType {
 
   def fromString(value: String): ScaleType = {
     val valueUpper = value.toUpperCase()
-    if (value.equals("MAJOR"))
+    if (valueUpper.equals("MAJOR"))
       MAJOR
-    else if (value.equals("MINOR"))
+    else if (valueUpper.equals("MINOR"))
       MINOR
     else
       UNKNOWN

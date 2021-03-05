@@ -7,6 +7,7 @@ import org.modulo12.core.{
   DirectoryToAnalyze,
   FileType,
   FileTypesToAnalye,
+  RequestedScaleType,
   ScaleType,
   SimpleExpressionResult,
   Song,
@@ -25,22 +26,13 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
   override def visitSql_statement(ctx: Modulo12Parser.Sql_statementContext): SongsSatisfyingQuery = {
     val fileTypesToAnalye  = visitInput_list_clause(ctx.input_list_clause()).fileTypes
     val directoryToAnalyze = visitFrom_clause(ctx.from_clause()).directory
-
-    val xmlSongsToAnalyze =
-      if (fileTypesToAnalye.contains(FileType.MusicXML))
-        musicXMLParser.parseAllFiles(directoryToAnalyze)
-      else
-        List()
-
-    val midiSongToAnalyze =
-      if (fileTypesToAnalye.contains(FileType.Midi))
-        midiParser.parseAllFiles(directoryToAnalyze)
-      else
-        List()
-
-    val allSongs = xmlSongsToAnalyze ++ midiSongToAnalyze
-    // TODO: Implement where conditionals here
-    SongsSatisfyingQuery(allSongs)
+    val allSongsToAnalyze  = acquireSongsForProcessing(fileTypesToAnalye, directoryToAnalyze)
+    val songsSatisfyingQuery = if (ctx.where_clause() != null) {
+      val RequestedScaleType(scaleType) = visitWhere_clause(ctx.where_clause())
+      filtersSongsWithScaleType(scaleType, allSongsToAnalyze)
+    } else
+      allSongsToAnalyze
+    SongsSatisfyingQuery(songsSatisfyingQuery)
   }
 
   override def visitInput_list_clause(ctx: Modulo12Parser.Input_list_clauseContext): FileTypesToAnalye = {
@@ -58,4 +50,39 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
 
   override def visitFrom_clause(ctx: Modulo12Parser.From_clauseContext): DirectoryToAnalyze =
     DirectoryToAnalyze(new File(ctx.directory_name().ID().getText))
+
+  override def visitWhere_clause(ctx: Modulo12Parser.Where_clauseContext): RequestedScaleType =
+    // TODO: Add support for conditionals like AND/NOT/OR etc
+    visitSimple_expression(ctx.simple_expression())
+
+  override def visitSimple_expression(ctx: Modulo12Parser.Simple_expressionContext): RequestedScaleType = {
+    // TODO: Add other simple expressions and expand the visitor using pattern matching
+    val requestedScaleTypeStr = ctx.SCALE_TYPE().getText
+    println("Requested scale type in string is: " + requestedScaleTypeStr)
+    val requestedScaleType = ScaleType.fromString(ctx.SCALE_TYPE().getText)
+    println("Requested scale type is " + requestedScaleType.toString)
+    RequestedScaleType(requestedScaleType)
+  }
+
+  private def filtersSongsWithScaleType(requestedScaleType: ScaleType, songsToAnalyze: List[Song]): List[Song] =
+    songsToAnalyze.filter { song =>
+      val keySignature = song.metadata.keySignature
+      keySignature.map(sig => sig.scaleType.equals(requestedScaleType)).getOrElse(false)
+    }
+
+  private def acquireSongsForProcessing(fileTypesToAnalye: Set[FileType], directoryToAnalyze: File): List[Song] = {
+    val xmlSongsToAnalyze =
+      if (fileTypesToAnalye.contains(FileType.MusicXML))
+        musicXMLParser.parseAllFiles(directoryToAnalyze)
+      else
+        List()
+
+    val midiSongToAnalyze =
+      if (fileTypesToAnalye.contains(FileType.Midi))
+        midiParser.parseAllFiles(directoryToAnalyze)
+      else
+        List()
+
+    xmlSongsToAnalyze ++ midiSongToAnalyze
+  }
 }
