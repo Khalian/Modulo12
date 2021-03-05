@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.ANTLRInputStream
 import org.modulo12.sql.SqlParser
 
 class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
-  "parser" should "should return empty no midi files in non existent directory" in {
+  "parser" should "should return empty for non existent directory" in {
     val result = SqlParser.parse("select midi from resources/nonexistent;")
     result should equal(List())
   }
@@ -21,5 +21,14 @@ class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
     val result = SqlParser.parse("SELECT MIDI FROM resources/testmidifiles;")
     result should equal(List("MIDI_sample.mid"))
   }
-}
 
+  it should "should return music xml files in directory as is if no where clause is present" in {
+    val result = SqlParser.parse("select musicxml from resources/testmusicxmlfiles;")
+    result should equal(List("musicXMLTest.xml"))
+  }
+
+  it should "should return music xml files in directory with different case of keywords" in {
+    val result = SqlParser.parse("SELECT MUSICXML FROM resources/testmusicxmlfiles;")
+    result should equal(List("musicXMLTest.xml"))
+  }
+}

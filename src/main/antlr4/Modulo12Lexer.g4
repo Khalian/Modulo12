@@ -29,8 +29,10 @@ Z : [zZ];
 
 SELECT: S E L E C T;
 MIDI: M I D I;
+MUSICXML: M U S I C X M L;
 FROM: F R O M;
 SEMI: ';';
+COMMA: ',';
 
 ID: ('a'..'z' | 'A' .. 'Z' | '_' | '/')+ ;
 NEWLINE: '\r' ? '\n' -> skip;

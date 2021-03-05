@@ -9,18 +9,22 @@ options {
 
 sql_statement:
 		select_key
-		input_name
+		input_list_clause
 		from_clause
 		SEMI
-		;
+    ;
+
+input_list_clause:
+        input_name (COMMA input_name)*
+    ;
+
+input_name:
+        MIDI | MUSICXML
+    ;
 
 select_key:
 		SELECT
 	;
-
-input_name:
-        MIDI
-    ;
 
 from_clause:
         FROM directory_name
