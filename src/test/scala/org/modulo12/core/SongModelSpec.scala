@@ -32,4 +32,61 @@ class SongModelSpec extends AnyFlatSpec with should.Matchers {
     ScaleType.fromString("") should be(ScaleType.UNKNOWN)
     ScaleType.fromString("blah") should be(ScaleType.UNKNOWN)
     ScaleType.fromString("gibberish") should be(ScaleType.UNKNOWN)
-  }}
+  }
+
+  "Comparator fromString" should "should evaluate equals correctly" in {
+    Comparator.fromString("=") should be(Comparator.EQ)
+  }
+  
+  it should "should evaluate not equal to correctly" in {
+    Comparator.fromString("!=") should be(Comparator.NEQ)
+  }
+  
+  it should "should evaluate less than correctly" in {
+    Comparator.fromString("<") should be(Comparator.LT)
+  }
+  
+  it should "should evaluate greater than correctly" in {
+    Comparator.fromString(">") should be(Comparator.GT)
+  }
+  
+  it should "should evaluate less than or equal to correctly" in {
+    Comparator.fromString("<=") should be(Comparator.LEQ)
+  }
+  
+  it should "should evaluate greater than or equal to correctly" in {
+    Comparator.fromString(">=") should be(Comparator.GEQ)
+  }
+  
+  "Comparator compare" should "should compare equals correctly" in {
+    Comparator.compare(6.0, Comparator.EQ, 6.0) should be(true)
+    Comparator.compare(6.0, Comparator.EQ, 7.0) should be(false)
+  }
+  
+  it should "should compare not equals correctly" in {
+    Comparator.compare(6.0, Comparator.NEQ, 6.0) should be(false)
+    Comparator.compare(6.0, Comparator.NEQ, 7.0) should be(true)
+  }
+  
+  it should "should compare less than correctly" in {
+    Comparator.compare(5.0, Comparator.LT, 6.0) should be(true)
+    Comparator.compare(6.0, Comparator.LT, 5.0) should be(false)
+  }
+  
+  it should "should compare greater than correctly" in {
+    Comparator.compare(5.0, Comparator.GT, 6.0) should be(false)
+    Comparator.compare(6.0, Comparator.GT, 5.0) should be(true)
+  }
+  
+  it should "should compare less than or equal to correctly" in {
+    Comparator.compare(5.0, Comparator.LEQ, 6.0) should be(true)
+    Comparator.compare(6.0, Comparator.LEQ, 5.0) should be(false)
+    Comparator.compare(6.0, Comparator.LEQ, 6.0) should be(true)
+  }
+  
+  it should "should compare greater than or equal to correctly" in {
+    Comparator.compare(5.0, Comparator.GEQ, 6.0) should be(false)
+    Comparator.compare(6.0, Comparator.GEQ, 5.0) should be(true)
+    Comparator.compare(6.0, Comparator.GEQ, 6.0) should be(true)
+  }
+}

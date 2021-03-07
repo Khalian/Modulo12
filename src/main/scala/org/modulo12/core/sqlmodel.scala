@@ -22,14 +22,15 @@ case class RequestedLyrics(words: List[String])                                 
 case object UnknownSimpleExpression                                               extends SimpleExpression
 
 sealed trait Comparator
-case object EQ  extends Comparator // Equals
-case object NEQ extends Comparator // Not Equals
-case object GEQ extends Comparator // Greater than or equals
-case object LEQ extends Comparator // Less than or equals
-case object GT  extends Comparator // Greater than
-case object LT  extends Comparator // Less than
 
 object Comparator {
+  case object EQ  extends Comparator // Equals
+  case object NEQ extends Comparator // Not Equals
+  case object GEQ extends Comparator // Greater than or equals
+  case object LEQ extends Comparator // Less than or equals
+  case object GT  extends Comparator // Greater than
+  case object LT  extends Comparator // Less than
+
   def fromString(value: String): Comparator =
     value match {
       case ">=" => GEQ
