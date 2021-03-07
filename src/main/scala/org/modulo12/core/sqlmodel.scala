@@ -13,12 +13,13 @@ case class DirectoryToAnalyze(directory: File)         extends SqlSubQueryResult
 case class FileTypesToAnalye(fileTypes: Set[FileType]) extends SqlSubQueryResult
 
 // Where clause sub results
-sealed trait SimpleExpression                                            extends SqlSubQueryResult
-case class RequestedScaleType(scaleType: ScaleType)                      extends SimpleExpression
-case class RequestedInstrumentType(instrument: String)                   extends SimpleExpression
-case class RequestedTempoComparison(tempo: Double, operator: Comparator) extends SimpleExpression
-case class RequestedLyrics(words: List[String])                          extends SimpleExpression
-case object UnknownSimpleExpression                                      extends SimpleExpression
+sealed trait SimpleExpression                                                     extends SqlSubQueryResult
+case class RequestedScaleType(scaleType: ScaleType)                               extends SimpleExpression
+case class RequestedInstrumentType(instrument: String)                            extends SimpleExpression
+case class RequestedTempoComparison(tempo: Double, operator: Comparator)          extends SimpleExpression
+case class RequestedBarLinesComparison(numBarlines: Double, operator: Comparator) extends SimpleExpression
+case class RequestedLyrics(words: List[String])                                   extends SimpleExpression
+case object UnknownSimpleExpression                                               extends SimpleExpression
 
 sealed trait Comparator
 case object EQ  extends Comparator // Equals

@@ -40,6 +40,7 @@ class MusicXMLParserSpec extends AnyFlatSpec with should.Matchers with Inside {
         songMeta.instrumentNames should be(Set())
         songMeta.temposBPM should be(Set())
         songMeta.keySignature should contain(KeySignature(-3, MAJOR))
+        songMeta.numBarLines should be(2)
 
         songData.chords.size should be(0)
         songData.notes.size should be(6)

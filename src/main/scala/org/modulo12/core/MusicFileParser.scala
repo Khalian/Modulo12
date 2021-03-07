@@ -33,6 +33,7 @@ trait MusicFileParser {
 
   def extractSongDataFromListener(listener: SongParserListener): (SongMetadata, SongData) = {
     val metadata = SongMetadata(
+      listener.numBarLines,
       listener.temposBPM.toSet,
       listener.keySignature,
       listener.timeSignature,

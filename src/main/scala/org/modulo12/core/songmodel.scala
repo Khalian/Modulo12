@@ -29,6 +29,7 @@ case class KeySignature(key: Integer, scaleType: ScaleType)
 case class TimeSignature(beatsPerMeasure: Int, noteValuePerBeat: Int)
 
 case class SongMetadata(
+    numBarLines: Int,
     temposBPM: Set[Int],
     keySignature: Option[KeySignature],
     timeSig: Option[TimeSignature],

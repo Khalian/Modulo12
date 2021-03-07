@@ -33,6 +33,7 @@ class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
         songMeta.instrumentNames should contain allOf ("Electric_Jazz_Guitar", "Piano", "Electric_Bass_Finger")
         songMeta.temposBPM should be(Set(120))
         songMeta.keySignature should be(None)
+        songMeta.numBarLines should be(0)
 
         songData.chords.size should be(0)
         // TODO: Fix this, it non deterministically fails, not priority until the metadata language is completed

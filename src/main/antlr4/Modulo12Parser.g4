@@ -39,12 +39,17 @@ simple_expression:
        scale_type
         | song_has_instrument
         | tempo_comparison
+        | num_barlines_comparsion
         | lyrics_comparison
     ;
 
 lyrics_comparison:
         SONG HAS LYRICS words
     ;
+
+num_barlines_comparsion:
+         NUMBARLINES relational_op NUMBER
+     ;
 
 tempo_comparison:
          TEMPO relational_op NUMBER
