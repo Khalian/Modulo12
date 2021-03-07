@@ -117,8 +117,8 @@ class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
     result should equal(List())
   }
 
-  it should "return nothing if song tempo requested is not equal its actual value" in {
-    val result = SqlParser.parse("SELECT midi FROM resources where tempo != 100;")
+  it should "return nothing if song tempo requested with not equals comparator actually is the requested tempo value" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo != 120;")
     result should equal(List())
   }
 
@@ -134,6 +134,26 @@ class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
   
   it should "return nothing if we try to compare temp and there is no tempo in the song" in {
     val result = SqlParser.parse("SELECT musicxml FROM resources where tempo = 110;")
+    result should equal(List())
+  }
+  
+  it should "return song correctly if lyric word requested is in the song" in {
+    val result = SqlParser.parse("SELECT musicxml FROM resources where SONG has lyrics something;")
+    result should equal(List("musicXMLTest.xml"))
+  }
+  
+  it should "return song correctly if lyric words requested is in the song" in {
+    val result = SqlParser.parse("SELECT musicxml FROM resources where SONG has lyrics something, heil;")
+    result should equal(List("musicXMLTest.xml"))
+  }
+  
+  it should "return nothing if lyrics requested are not in the song" in {
+    val result = SqlParser.parse("SELECT musicxml FROM resources where SONG has lyrics wrong, words;")
+    result should equal(List())
+  }
+  
+  it should "return nothing if lyrics requested but there are no lyrics in the song" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where SONG has lyrics something;")
     result should equal(List())
   }
 }

@@ -39,6 +39,11 @@ simple_expression:
        scale_type
         | song_has_instrument
         | tempo_comparison
+        | lyrics_comparison
+    ;
+
+lyrics_comparison:
+        SONG HAS LYRICS words
     ;
 
 tempo_comparison:
@@ -50,11 +55,19 @@ scale_type:
    ;
 
 relational_op:
-        EQ | LEQ | GEQ | LT | GT
+        EQ | LEQ | GEQ | LT | GT | NEQ
   ;
 
 song_has_instrument:
         SONG HAS INSTRUMENT ID
+    ;
+
+words:
+        word (COMMA word)*
+    ;
+
+word:
+        ID
     ;
 
 directory_name:

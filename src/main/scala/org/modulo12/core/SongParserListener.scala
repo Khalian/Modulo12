@@ -6,6 +6,7 @@ import org.jfugue.theory.{ Chord, Note }
 import org.modulo12.core.{ KeySignature, ScaleType, TimeSignature }
 
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 class SongParserListener extends ParserListenerAdapter {
   var temposBPM       = new mutable.ListBuffer[Int]()
@@ -14,6 +15,10 @@ class SongParserListener extends ParserListenerAdapter {
   var keySignature    = Option.empty[KeySignature]
   var notes           = new mutable.ListBuffer[Note]
   var chords          = new mutable.ListBuffer[Chord]
+  val lyrics          = new mutable.ListBuffer[String]
+
+  override def onLyricParsed(lyric: String): Unit =
+    lyrics.addOne(lyric)
 
   override def onNoteParsed(note: Note): Unit =
     notes.addOne(note)

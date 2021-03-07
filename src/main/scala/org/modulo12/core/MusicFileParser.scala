@@ -38,7 +38,9 @@ trait MusicFileParser {
       listener.timeSignature,
       listener.instrumentNames.toSet
     )
-    val data = SongData(listener.notes.toList.distinct, listener.chords.toList.distinct)
+    val lyrics = if (listener.lyrics.isEmpty) None else Option(listener.lyrics.mkString(" "))
+    val data =
+      SongData(listener.notes.toList.distinct, listener.chords.toList.distinct, lyrics)
     (metadata, data)
   }
 

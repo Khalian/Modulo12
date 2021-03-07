@@ -9,6 +9,7 @@ import org.modulo12.core.{
   FileType,
   FileTypesToAnalye,
   RequestedInstrumentType,
+  RequestedLyrics,
   RequestedScaleType,
   RequestedTempoComparison,
   ScaleType,
@@ -34,15 +35,7 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
     val allSongsToAnalyze  = acquireSongsForProcessing(fileTypesToAnalye, directoryToAnalyze)
     val songsSatisfyingQuery =
       if (ctx.where_clause() != null)
-        visitWhere_clause(ctx.where_clause()) match {
-          case RequestedScaleType(scaleType) =>
-            SongMetadataEvaluator.filtersSongsWithScaleType(scaleType, allSongsToAnalyze)
-          case RequestedInstrumentType(instrument) =>
-            SongMetadataEvaluator.filterSongsWithInstrument(instrument, allSongsToAnalyze)
-          case RequestedTempoComparison(tempo, comparator) =>
-            SongMetadataEvaluator.filterSongsWithTempoComparsion(tempo, comparator, allSongsToAnalyze)
-          case UnknownSimpleExpression => allSongsToAnalyze
-        }
+        evaluateWhereClause(ctx, allSongsToAnalyze)
       else
         allSongsToAnalyze
     SongsSatisfyingQuery(songsSatisfyingQuery)
@@ -81,8 +74,24 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
       val comparator = Comparator.fromString(ctx.tempo_comparison().relational_op().getText)
       val tempo      = ctx.tempo_comparison().NUMBER().getText.toDouble
       RequestedTempoComparison(tempo, comparator)
+    } else if (ctx.lyrics_comparison() != null) {
+      val lyricsToCompare = ctx.lyrics_comparison().words().word().asScala.map(_.getText)
+      RequestedLyrics(lyricsToCompare.toList)
     } else
       UnknownSimpleExpression
+
+  private def evaluateWhereClause(ctx: Modulo12Parser.Sql_statementContext, allSongsToAnalyze: List[Song]): List[Song] =
+    visitWhere_clause(ctx.where_clause()) match {
+      case RequestedScaleType(scaleType) =>
+        SongMetadataEvaluator.filtersSongsWithScaleType(scaleType, allSongsToAnalyze)
+      case RequestedInstrumentType(instrument) =>
+        SongMetadataEvaluator.filterSongsWithInstrument(instrument, allSongsToAnalyze)
+      case RequestedTempoComparison(tempo, comparator) =>
+        SongMetadataEvaluator.filterSongsWithTempoComparsion(tempo, comparator, allSongsToAnalyze)
+      case RequestedLyrics(lyrics) =>
+        SongMetadataEvaluator.filterSongWithLyrics(lyrics, allSongsToAnalyze)
+      case UnknownSimpleExpression => allSongsToAnalyze
+    }
 
   private def acquireSongsForProcessing(fileTypesToAnalye: Set[FileType], directoryToAnalyze: File): List[Song] = {
     val xmlSongsToAnalyze =

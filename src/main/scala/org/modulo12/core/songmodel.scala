@@ -3,7 +3,7 @@ package org.modulo12.core
 import org.jfugue.theory.{ Chord, Note }
 
 // Song data
-case class SongData(notes: List[Note], chords: List[Chord])
+case class SongData(notes: List[Note], chords: List[Chord], lyrics: Option[String])
 
 // Song metadata
 sealed trait ScaleType

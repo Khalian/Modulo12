@@ -37,6 +37,7 @@ class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
         songData.chords.size should be(0)
         // TODO: Fix this, it non deterministically fails, not priority until the metadata language is completed
         // songData.notes.size should be(1651)
+        songData.lyrics.isEmpty should be(true)
     }
   }
 

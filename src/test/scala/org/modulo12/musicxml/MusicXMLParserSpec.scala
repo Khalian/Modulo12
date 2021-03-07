@@ -43,6 +43,7 @@ class MusicXMLParserSpec extends AnyFlatSpec with should.Matchers with Inside {
 
         songData.chords.size should be(0)
         songData.notes.size should be(6)
+        songData.lyrics should contain("something du nicht, heil ger")
     }
   }
   it should "return empty list invalid directory" in {

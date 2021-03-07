@@ -17,6 +17,7 @@ sealed trait SimpleExpression                                            extends
 case class RequestedScaleType(scaleType: ScaleType)                      extends SimpleExpression
 case class RequestedInstrumentType(instrument: String)                   extends SimpleExpression
 case class RequestedTempoComparison(tempo: Double, operator: Comparator) extends SimpleExpression
+case class RequestedLyrics(words: List[String])                          extends SimpleExpression
 case object UnknownSimpleExpression                                      extends SimpleExpression
 
 sealed trait Comparator
@@ -31,7 +32,7 @@ object Comparator {
   def fromString(value: String): Comparator =
     value match {
       case ">=" => GEQ
-      case "!-" => NEQ
+      case "!=" => NEQ
       case "<=" => LEQ
       case "="  => EQ
       case "<"  => LT
