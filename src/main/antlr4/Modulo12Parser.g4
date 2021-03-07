@@ -32,8 +32,17 @@ from_clause:
     ;
 
 where_clause:
-        WHERE simple_expression
+        WHERE expression
     ;
+
+logical_op:
+		AND | OR
+    ;
+
+expression:
+        expression logical_op expression
+		| simple_expression
+	;
 
 simple_expression:
        scale_type

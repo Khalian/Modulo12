@@ -13,7 +13,13 @@ case class DirectoryToAnalyze(directory: File)         extends SqlSubQueryResult
 case class FileTypesToAnalye(fileTypes: Set[FileType]) extends SqlSubQueryResult
 
 // Where clause sub results
-sealed trait SimpleExpression                                                     extends SqlSubQueryResult
+sealed trait WhereExpression extends SqlSubQueryResult
+case class LogicalExpression(
+    leftExpr: WhereExpression,
+    logicalOperator: LogicalOperator,
+    rightExpr: WhereExpression
+) extends WhereExpression
+sealed trait SimpleExpression                                                     extends WhereExpression
 case class RequestedScaleType(scaleType: ScaleType)                               extends SimpleExpression
 case class RequestedInstrumentType(instrument: String)                            extends SimpleExpression
 case class RequestedTempoComparison(tempo: Double, operator: Comparator)          extends SimpleExpression
@@ -49,5 +55,17 @@ object Comparator {
       case LT  => operand1 < operand2
       case GT  => operand1 > operand2
       case NEQ => operand1 != operand2
+    }
+}
+
+sealed trait LogicalOperator
+case object LogicalOperator {
+  case object AND extends LogicalOperator
+  case object OR  extends LogicalOperator
+
+  def fromString(value: String): LogicalOperator =
+    value.toUpperCase match {
+      case "AND" => AND
+      case "OR"  => OR
     }
 }

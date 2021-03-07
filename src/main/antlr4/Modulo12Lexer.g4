@@ -36,6 +36,10 @@ LT: '<';
 GT: '>';
 HAS: H A S;
 
+// Logical operations
+AND: A N D;
+OR : O R;
+
 // Key words
 SELECT: S E L E C T;
 MIDI: M I D I;

@@ -89,4 +89,16 @@ class SongModelSpec extends AnyFlatSpec with should.Matchers {
     Comparator.compare(6.0, Comparator.GEQ, 5.0) should be(true)
     Comparator.compare(6.0, Comparator.GEQ, 6.0) should be(true)
   }
+  
+  "Logical Operator from string" should "evaluate AND operator correctly" in {
+    LogicalOperator.fromString("AND") should be (LogicalOperator.AND)
+    LogicalOperator.fromString("and") should be (LogicalOperator.AND)
+    LogicalOperator.fromString("aND") should be (LogicalOperator.AND)
+  }
+  
+  it should "evaluate OR operator correctly" in {
+    LogicalOperator.fromString("OR") should be (LogicalOperator.OR)
+    LogicalOperator.fromString("or") should be (LogicalOperator.OR)
+    LogicalOperator.fromString("Or") should be (LogicalOperator.OR)
+  }
 }

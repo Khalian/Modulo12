@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.ANTLRInputStream
 import org.modulo12.sql.SqlParser
 
 class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
-  "parser" should "return empty for non existent directory" in {
+  "sql parser" should "return empty for non existent directory" in {
     val result = SqlParser.parse("select midi from resources/nonexistent;")
     result should equal(List())
   }
