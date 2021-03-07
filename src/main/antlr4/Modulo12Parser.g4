@@ -36,7 +36,16 @@ where_clause:
     ;
 
 simple_expression:
+       scale_type
+        | song_has_instrument
+    ;
+
+scale_type:
         SCALE EQ SCALE_TYPE
+   ;
+
+song_has_instrument:
+        SONG HAS INSTRUMENT ID
     ;
 
 directory_name:

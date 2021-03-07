@@ -38,10 +38,13 @@ COMMA: ',';
 
 // Conditions
 EQ: '=';
+HAS: H A S;
 
 // Song metadata conditions
 SCALE: S C A L E;
 SCALE_TYPE:  M I N O R | M A J O R | U N K N O W N;
+SONG: S O N G;
+INSTRUMENT: I N S T R U M E N T;
 
 // Generic definitions
 ID: ('a'..'z' | 'A' .. 'Z' | '_' | '/')+ ;
