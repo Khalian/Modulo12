@@ -81,4 +81,59 @@ class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
     val result = SqlParser.parse("SELECT musicxml FROM resources where SONG has instrument guitar;")
     result should equal(List())
   }
+
+  it should "return song correctly if song tempo is greater than requested tempo" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo > 90;")
+    result should equal(List("MIDI_sample.mid"))
+  }
+
+  it should "return song correctly if song tempo is less than requested tempo" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo < 150;")
+    result should equal(List("MIDI_sample.mid"))
+  }
+  
+  it should "return song correctly if song tempo is equal to requested tempo" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo = 120;")
+    result should equal(List("MIDI_sample.mid"))
+  }
+  
+  it should "return song correctly if song tempo is greater than or equal to requested tempo" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo >= 120;")
+    result should equal(List("MIDI_sample.mid"))
+  }
+  
+  it should "return song correctly if song tempo is less than or equal to requested tempo" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo <= 120;")
+    result should equal(List("MIDI_sample.mid"))
+  }
+
+  it should "return nothing if song tempo requested is greater than its value" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo > 130;")
+    result should equal(List())
+  }
+
+  it should "return nothing if song tempo requested is less than its value" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo < 110;")
+    result should equal(List())
+  }
+
+  it should "return nothing if song tempo requested is not equal its actual value" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo != 100;")
+    result should equal(List())
+  }
+
+  it should "return nothing if song tempo requested is greater or equal to than its value" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo >= 130;")
+    result should equal(List())
+  }
+
+  it should "return nothing if song tempo requested is less than or equal to its value" in {
+    val result = SqlParser.parse("SELECT midi FROM resources where tempo < 110;")
+    result should equal(List())
+  }
+  
+  it should "return nothing if we try to compare temp and there is no tempo in the song" in {
+    val result = SqlParser.parse("SELECT musicxml FROM resources where tempo = 110;")
+    result should equal(List())
+  }
 }

@@ -38,11 +38,20 @@ where_clause:
 simple_expression:
        scale_type
         | song_has_instrument
+        | tempo_comparison
     ;
+
+tempo_comparison:
+         TEMPO relational_op NUMBER
+     ;
 
 scale_type:
         SCALE EQ SCALE_TYPE
    ;
+
+relational_op:
+        EQ | LEQ | GEQ | LT | GT
+  ;
 
 song_has_instrument:
         SONG HAS INSTRUMENT ID

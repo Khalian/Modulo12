@@ -27,6 +27,14 @@ X : [xX];
 Y : [yY];
 Z : [zZ];
 
+// Conditions
+EQ: '=';
+LEQ: '<=';
+GEQ: '>=';
+LT: '<';
+GT: '>';
+HAS: H A S;
+
 // Key words
 SELECT: S E L E C T;
 MIDI: M I D I;
@@ -36,17 +44,15 @@ WHERE: W H E R E;
 SEMI: ';';
 COMMA: ',';
 
-// Conditions
-EQ: '=';
-HAS: H A S;
-
-// Song metadata conditions
+// Song metadata factors
 SCALE: S C A L E;
 SCALE_TYPE:  M I N O R | M A J O R | U N K N O W N;
 SONG: S O N G;
 INSTRUMENT: I N S T R U M E N T;
+TEMPO: T E M P O;
 
 // Generic definitions
 ID: ('a'..'z' | 'A' .. 'Z' | '_' | '/')+ ;
+NUMBER: ('0' .. '9') + ('.' ('0' .. '9') +)?;
 NEWLINE: '\r' ? '\n' -> skip;
 WS: (' ' | '\t' | '\n' | '\r')+ -> skip;

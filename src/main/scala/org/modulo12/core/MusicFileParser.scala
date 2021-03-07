@@ -45,5 +45,5 @@ trait MusicFileParser {
   // https://stackoverflow.com/questions/2637643/how-do-i-list-all-files-in-a-subdirectory-in-scala
   private def getFileTree(f: File): LazyList[File] =
     f #:: (if (f.isDirectory) f.listFiles().to(LazyList).flatMap(getFileTree)
-    else LazyList.empty)
+           else LazyList.empty)
 }

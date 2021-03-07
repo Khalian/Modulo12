@@ -6,10 +6,14 @@ object SongMetadataEvaluator {
       val keySignature = song.metadata.keySignature
       keySignature.map(sig => sig.scaleType.equals(requestedScaleType)).getOrElse(false)
     }
-  
-  def filterSongsWithInstrument(instrument: String, songsToAnalyze: List[Song]): List[Song] = {
+
+  def filterSongsWithInstrument(instrument: String, songsToAnalyze: List[Song]): List[Song] =
     songsToAnalyze.filter { song =>
       song.metadata.instrumentNames.map(_.toLowerCase).contains(instrument.toLowerCase)
     }
-  }
+
+  def filterSongsWithTempoComparsion(tempo: Double, comparator: Comparator, songsToAnalyze: List[Song]): List[Song] =
+    songsToAnalyze.filter { song =>
+      song.metadata.temposBPM.exists(songTempo => Comparator.compare(songTempo, comparator, tempo))
+    }
 }
