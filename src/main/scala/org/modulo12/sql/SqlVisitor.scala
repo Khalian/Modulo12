@@ -8,14 +8,16 @@ import org.modulo12.core.{
   DirectoryToAnalyze,
   FileType,
   FileTypesToAnalye,
+  Key,
   LogicalExpression,
   LogicalOperator,
   RequestedBarLinesComparison,
   RequestedInstrumentType,
+  RequestedKeyType,
   RequestedLyrics,
   RequestedScaleType,
   RequestedTempoComparison,
-  ScaleType,
+  Scale,
   SimpleExpression,
   Song,
   SongMetadataEvaluator,
@@ -70,10 +72,14 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
 
   override def visitSimple_expression(ctx: Modulo12Parser.Simple_expressionContext): SimpleExpression =
     // TODO: Add other simple expressions and expand the visitor using pattern matching
-    if (ctx.scale_type() != null) {
-      val requestedScaleTypeStr = ctx.scale_type().SCALE_TYPE().getText
-      val requestedScaleType    = ScaleType.fromString(requestedScaleTypeStr)
+    if (ctx.scale_comparison() != null) {
+      val requestedScaleTypeStr = ctx.scale_comparison().SCALE_TYPE().getText
+      val requestedScaleType    = Scale.fromString(requestedScaleTypeStr)
       RequestedScaleType(requestedScaleType)
+    } else if (ctx.key_comparison() != null) {
+      val requestedKeyTypeStr = ctx.key_comparison().key_type().getText
+      val requestedKeyType    = Key.fromString(requestedKeyTypeStr)
+      RequestedKeyType(requestedKeyType)
     } else if (ctx.song_has_instrument() != null) {
       val requestedInstrument = ctx.song_has_instrument().ID().getText
       RequestedInstrumentType(requestedInstrument)
@@ -99,26 +105,28 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
     evaluateWhereExpression(whereExpr, allSongsToAnalyze)
   }
 
-  private def evaluateWhereExpression(w: WhereExpression, allSongsToAnalyze:List[Song]): List[Song] =
+  private def evaluateWhereExpression(w: WhereExpression, allSongsToAnalyze: List[Song]): List[Song] =
     w match {
       case s: SimpleExpression  => evaluateSimpleExpression(s, allSongsToAnalyze)
       case l: LogicalExpression => evaluateLogicalExpression(l, allSongsToAnalyze)
     }
 
   private def evaluateLogicalExpression(l: LogicalExpression, allSongsToAnalyze: List[Song]): List[Song] = {
-    val leftExpr = evaluateWhereExpression(l.leftExpr, allSongsToAnalyze)
+    val leftExpr  = evaluateWhereExpression(l.leftExpr, allSongsToAnalyze)
     val rightExpr = evaluateWhereExpression(l.rightExpr, allSongsToAnalyze)
 
     l.logicalOperator match {
       case LogicalOperator.AND => leftExpr.toSet.intersect(rightExpr.toSet).toList
-      case LogicalOperator.OR => leftExpr.toSet.union(rightExpr.toSet).toList
+      case LogicalOperator.OR  => leftExpr.toSet.union(rightExpr.toSet).toList
     }
   }
 
-  private def evaluateSimpleExpression(s: SimpleExpression, allSongsToAnalyze:List[Song]): List[Song] =
+  private def evaluateSimpleExpression(s: SimpleExpression, allSongsToAnalyze: List[Song]): List[Song] =
     s match {
       case RequestedScaleType(scaleType) =>
         SongMetadataEvaluator.filtersSongsWithScaleType(scaleType, allSongsToAnalyze)
+      case RequestedKeyType(keyType) =>
+        SongMetadataEvaluator.filtersSongsWithKeyType(keyType, allSongsToAnalyze)
       case RequestedInstrumentType(instrument) =>
         SongMetadataEvaluator.filterSongsWithInstrument(instrument, allSongsToAnalyze)
       case RequestedTempoComparison(tempo, comparator) =>
@@ -131,13 +139,13 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
     }
 
   def constructLogicalExpression(
-     expression: Modulo12Parser.ExpressionContext
-  ): WhereExpression = {
-    if (expression.simple_expression() != null) {
+      expression: Modulo12Parser.ExpressionContext
+  ): WhereExpression =
+    if (expression.simple_expression() != null)
       visitSimple_expression(expression.simple_expression())
-    } else {
-      val exprLeft   = expression.expression(0)
-      val exprRight  = expression.expression(1)
+    else {
+      val exprLeft  = expression.expression(0)
+      val exprRight = expression.expression(1)
       val evalExprLeft =
         if (exprLeft.simple_expression() != null) constructLogicalExpression(exprLeft)
         else visitSimple_expression(exprLeft.simple_expression())
@@ -145,10 +153,9 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
         if (exprRight.simple_expression() != null) constructLogicalExpression(exprRight)
         else visitSimple_expression(exprRight.simple_expression())
 
-      val logicalOp  = LogicalOperator.fromString(expression.logical_op().getText)
+      val logicalOp = LogicalOperator.fromString(expression.logical_op().getText)
       LogicalExpression(evalExprLeft, logicalOp, evalExprRight)
     }
-  }
 
   private def acquireSongsForProcessing(fileTypesToAnalye: Set[FileType], directoryToAnalyze: File): List[Song] = {
     val xmlSongsToAnalyze =

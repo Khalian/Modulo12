@@ -50,8 +50,21 @@ SEMI: ';';
 COMMA: ',';
 
 // Song metadata factors
+KEY : K E Y;
+SHARP: '#';
+FLAT: 'b';
+// Keys with qualifiers, TODO: Simplify this somehow
+FSHARP : F SHARP;
+CSHARP : C SHARP;
+BFLAT : B FLAT;
+EFLAT : E FLAT;
+AFLAT : A FLAT;
+DFLAT : D FLAT;
+GFLAT : G FLAT;
+CFLAT : C FLAT;
+
 SCALE: S C A L E;
-SCALE_TYPE:  M I N O R | M A J O R | U N K N O W N;
+SCALE_TYPE : M I N O R | M A J O R;
 SONG: S O N G;
 INSTRUMENT: I N S T R U M E N T;
 LYRICS: L Y R I C S;

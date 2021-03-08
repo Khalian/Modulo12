@@ -3,8 +3,8 @@ package org.modulo12.musicxml
 import org.scalatest._
 import matchers._
 import flatspec._
-import org.modulo12.core.ScaleType.MAJOR
-import org.modulo12.core.{FileType, KeySignature, ParseFileResult, ScaleType, Song, TimeSignature}
+import org.modulo12.core.Scale.MAJOR
+import org.modulo12.core.{FileType, KeySignature, Key, ParseFileResult, Scale, Song, TimeSignature}
 
 import java.io.File
 import scala.language.implicitConversions
@@ -39,7 +39,7 @@ class MusicXMLParserSpec extends AnyFlatSpec with should.Matchers with Inside {
         songMeta.timeSig should be(None)
         songMeta.instrumentNames should be(Set())
         songMeta.temposBPM should be(Set())
-        songMeta.keySignature should contain(KeySignature(-3, MAJOR))
+        songMeta.keySignature should contain(KeySignature(Key.Eb, MAJOR))
         songMeta.numBarLines should be(2)
 
         songData.chords.size should be(0)

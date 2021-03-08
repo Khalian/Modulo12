@@ -57,21 +57,6 @@ class SqlParserSpec extends AnyFlatSpec with should.Matchers with Inside {
     result should equal(List("MIDI_sample.mid"))
   }
 
-  it should "return file correctly where condition for scale type requested is major" in {
-    val result = SqlParser.parse("SELECT MUSICXML FROM resources where scale = major;")
-    result should equal(List("musicXMLTest.xml"))
-  }
-  
-  it should "return nothing where condition for scale type requested is major but song is in minor" in {
-    val result = SqlParser.parse("SELECT MUSICXML FROM resources where scale = minor;")
-    result should equal(List())
-  }
-  
-  it should "return nothing where condition for scale type requested is unknown but song is in minor" in {
-    val result = SqlParser.parse("SELECT MUSICXML FROM resources where scale = minor;")
-    result should equal(List())
-  }
-
   it should "return song correctly if there is an instrument in it" in {
     val result = SqlParser.parse("SELECT midi FROM resources where song has instrument piano;")
     result should equal(List("MIDI_sample.mid"))

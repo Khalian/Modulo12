@@ -2,7 +2,7 @@ package org.modulo12.midi
 import org.scalatest._
 import matchers._
 import flatspec._
-import org.modulo12.core.{FileType, KeySignature, ParseFileResult, ScaleType, Song, TimeSignature}
+import org.modulo12.core.{FileType, KeySignature, ParseFileResult, Scale, Song, TimeSignature}
 
 import java.io.File
 import scala.language.implicitConversions

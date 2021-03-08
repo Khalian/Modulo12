@@ -3,7 +3,7 @@ package org.modulo12.core
 import org.jfugue.midi.MidiDictionary
 import org.jfugue.parser.ParserListenerAdapter
 import org.jfugue.theory.{ Chord, Note }
-import org.modulo12.core.{ KeySignature, ScaleType, TimeSignature }
+import org.modulo12.core.{ KeySignature, Scale, TimeSignature }
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -34,12 +34,12 @@ class SongParserListener extends ParserListenerAdapter {
 
   override def onKeySignatureParsed(key: Byte, scale: Byte): Unit = {
     val scaleType = scale.toInt match {
-      case 0 => ScaleType.MAJOR
-      case 1 => ScaleType.MINOR
-      case _ => ScaleType.UNKNOWN
+      case 0 => Scale.MAJOR
+      case 1 => Scale.MINOR
+      case _ => Scale.UNKNOWN
     }
 
-    keySignature = Option(KeySignature(key.toInt, scaleType))
+    keySignature = Option(KeySignature(Key.rotateOnCircleOfFifths(key.toInt), scaleType))
   }
 
   override def onTempoChanged(tempoBPM: Int): Unit =

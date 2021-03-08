@@ -45,7 +45,8 @@ expression:
 	;
 
 simple_expression:
-       scale_type
+       scale_comparison
+        | key_comparison
         | song_has_instrument
         | tempo_comparison
         | num_barlines_comparsion
@@ -64,9 +65,17 @@ tempo_comparison:
          TEMPO relational_op NUMBER
      ;
 
-scale_type:
+scale_comparison:
         SCALE EQ SCALE_TYPE
    ;
+
+key_comparison:
+       KEY EQ key_type
+  ;
+
+key_type:
+       C | G | D | A | E | B | FSHARP | CSHARP | F | BFLAT | EFLAT | AFLAT | DFLAT | GFLAT | CFLAT
+  ;
 
 relational_op:
         EQ | LEQ | GEQ | LT | GT | NEQ

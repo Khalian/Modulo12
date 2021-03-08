@@ -1,10 +1,16 @@
 package org.modulo12.core
 
 object SongMetadataEvaluator {
-  def filtersSongsWithScaleType(requestedScaleType: ScaleType, songsToAnalyze: List[Song]): List[Song] =
+  def filtersSongsWithScaleType(requestedScaleType: Scale, songsToAnalyze: List[Song]): List[Song] =
     songsToAnalyze.filter { song =>
       val keySignature = song.metadata.keySignature
-      keySignature.map(sig => sig.scaleType.equals(requestedScaleType)).getOrElse(false)
+      keySignature.map(sig => sig.scale.equals(requestedScaleType)).getOrElse(false)
+    }
+
+  def filtersSongsWithKeyType(requestedKeyType: Key, songsToAnalyze: List[Song]): List[Song] =
+    songsToAnalyze.filter { song =>
+      val keySignature = song.metadata.keySignature
+      keySignature.map(sig => sig.key.equals(requestedKeyType)).getOrElse(false)
     }
 
   def filterSongsWithInstrument(instrument: String, songsToAnalyze: List[Song]): List[Song] =

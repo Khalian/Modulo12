@@ -20,7 +20,8 @@ case class LogicalExpression(
     rightExpr: WhereExpression
 ) extends WhereExpression
 sealed trait SimpleExpression                                                     extends WhereExpression
-case class RequestedScaleType(scaleType: ScaleType)                               extends SimpleExpression
+case class RequestedScaleType(scaleType: Scale)                                   extends SimpleExpression
+case class RequestedKeyType(key: Key)                                             extends SimpleExpression
 case class RequestedInstrumentType(instrument: String)                            extends SimpleExpression
 case class RequestedTempoComparison(tempo: Double, operator: Comparator)          extends SimpleExpression
 case class RequestedBarLinesComparison(numBarlines: Double, operator: Comparator) extends SimpleExpression
