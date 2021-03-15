@@ -35,5 +35,5 @@ class MusicXMLParser extends MusicFileParser {
       ParseFileResult.FileNotFound(musicXmlFile.getAbsolutePath)
 
   override def fileExtensions(): List[String] =
-    List("xml")
+    List(".xml")
 }
