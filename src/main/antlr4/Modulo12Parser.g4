@@ -20,7 +20,7 @@ input_list_clause:
     ;
 
 input_name:
-        MIDI | MUSICXML
+        MIDI | MUSICXML | WILDCARD
     ;
 
 select_key:

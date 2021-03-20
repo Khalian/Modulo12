@@ -30,6 +30,6 @@ class BinaryLogicalOperationSqlSpec extends AnyFlatSpec with should.Matchers wit
   it should "return nothing for a valid OR condition with both statements as false" in {
     SqlParser.parse("select midi from resources where tempo = 150 OR song has lyrics friday, go;") should equal(List())
   }
-  
+
   // TODO: Write more complex unit tests here
 }

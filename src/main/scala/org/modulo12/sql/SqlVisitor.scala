@@ -52,10 +52,11 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
     val fileTypes = ctx
       .input_name()
       .asScala
-      .map(fileType =>
+      .flatMap(fileType =>
         fileType.getText.toUpperCase match {
-          case "MIDI"     => FileType.Midi
-          case "MUSICXML" => FileType.MusicXML
+          case "MIDI"     => List(FileType.Midi)
+          case "MUSICXML" => List(FileType.MusicXML)
+          case "*"        => List(FileType.Midi, FileType.MusicXML)
         }
       )
     FileTypesToAnalye(fileTypes.toSet)

@@ -44,6 +44,7 @@ OR : O R;
 SELECT: S E L E C T;
 MIDI: M I D I;
 MUSICXML: M U S I C X M L;
+WILDCARD: '*';
 FROM: F R O M;
 WHERE: W H E R E;
 SEMI: ';';
