@@ -74,7 +74,7 @@ NUMBARLINES: N U M B A R L I N E S;
 NUMTRACKS : N U M T R A C K S;
 
 // Generic definitions
-ID: ('a'..'z' | 'A' .. 'Z' | '_' | '/')+ ;
 NUMBER: ('0' .. '9') + ('.' ('0' .. '9') +)?;
+ID: ('a'..'z' | 'A' .. 'Z' | '_' | '/' | '0' .. '9')+ ;
 NEWLINE: '\r' ? '\n' -> skip;
 WS: (' ' | '\t' | '\n' | '\r')+ -> skip;

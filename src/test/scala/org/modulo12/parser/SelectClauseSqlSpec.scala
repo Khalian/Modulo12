@@ -54,4 +54,8 @@ class SelectClauseSqlSpec extends AnyFlatSpec with should.Matchers with Inside {
   it should "return empty for wildcard after select clause on incorrect directory" in {
     SqlParser.parse("select * FROM incorrectDir;") should equal(List())
   }
+  
+  it should "be valid syntax if there is a number in the directory" in {
+    SqlParser.parse("select * FROM incorrectDir123;") should equal(List())
+  }
 }
