@@ -71,6 +71,7 @@ INSTRUMENT: I N S T R U M E N T;
 LYRICS: L Y R I C S;
 TEMPO: T E M P O;
 NUMBARLINES: N U M B A R L I N E S;
+NUMTRACKS : N U M T R A C K S;
 
 // Generic definitions
 ID: ('a'..'z' | 'A' .. 'Z' | '_' | '/')+ ;

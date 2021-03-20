@@ -49,7 +49,8 @@ simple_expression:
         | key_comparison
         | song_has_instrument
         | tempo_comparison
-        | num_barlines_comparsion
+        | num_barlines_comparision
+        | num_tracks_comparision
         | lyrics_comparison
     ;
 
@@ -57,8 +58,12 @@ lyrics_comparison:
         SONG HAS LYRICS words
     ;
 
-num_barlines_comparsion:
+num_barlines_comparision:
          NUMBARLINES relational_op NUMBER
+     ;
+
+num_tracks_comparision:
+         NUMTRACKS relational_op NUMBER
      ;
 
 tempo_comparison:

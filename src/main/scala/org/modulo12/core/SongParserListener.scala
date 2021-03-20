@@ -17,8 +17,10 @@ class SongParserListener extends ParserListenerAdapter {
   var chords          = new mutable.ListBuffer[Chord]
   val lyrics          = new mutable.ListBuffer[String]
   var numBarLines     = 0
+  var numTracks       = 0
 
-  override def onMarkerParsed(marker: String): Unit = super.onMarkerParsed(marker)
+  override def onTrackChanged(track: Byte): Unit =
+    numTracks = numTracks + 1
 
   override def onBarLineParsed(id: Long): Unit =
     numBarLines = numBarLines + 1

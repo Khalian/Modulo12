@@ -17,6 +17,7 @@ import org.modulo12.core.{
   RequestedLyrics,
   RequestedScaleType,
   RequestedTempoComparison,
+  RequestedTracksComparison,
   Scale,
   SimpleExpression,
   Song,
@@ -91,10 +92,14 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
     } else if (ctx.lyrics_comparison() != null) {
       val lyricsToCompare = ctx.lyrics_comparison().words().word().asScala.map(_.getText)
       RequestedLyrics(lyricsToCompare.toList)
-    } else if (ctx.num_barlines_comparsion() != null) {
-      val comparator  = Comparator.fromString(ctx.num_barlines_comparsion().relational_op().getText)
-      val numBarLines = ctx.num_barlines_comparsion().NUMBER().getText.toDouble
+    } else if (ctx.num_barlines_comparision() != null) {
+      val comparator  = Comparator.fromString(ctx.num_barlines_comparision().relational_op().getText)
+      val numBarLines = ctx.num_barlines_comparision().NUMBER().getText.toDouble
       RequestedBarLinesComparison(numBarLines, comparator)
+    } else if (ctx.num_tracks_comparision() != null) {
+      val comparator = Comparator.fromString(ctx.num_tracks_comparision().relational_op().getText)
+      val numTracks  = ctx.num_tracks_comparision().NUMBER().getText.toDouble
+      RequestedTracksComparison(numTracks, comparator)
     } else
       UnknownSimpleExpression
 
@@ -134,6 +139,8 @@ class SqlVisitor(midiParser: MidiParser, musicXMLParser: MusicXMLParser)
         SongMetadataEvaluator.filterSongsWithTempoComparsion(tempo, comparator, allSongsToAnalyze)
       case RequestedBarLinesComparison(numBarlines, comparator) =>
         SongMetadataEvaluator.filterSongsWithNumBarsComparsion(numBarlines, comparator, allSongsToAnalyze)
+      case RequestedTracksComparison(numTracks, comparator) =>
+        SongMetadataEvaluator.filterSongsWithNumTracksComparsion(numTracks, comparator, allSongsToAnalyze)
       case RequestedLyrics(lyrics) =>
         SongMetadataEvaluator.filterSongWithLyrics(lyrics, allSongsToAnalyze)
       case UnknownSimpleExpression => allSongsToAnalyze

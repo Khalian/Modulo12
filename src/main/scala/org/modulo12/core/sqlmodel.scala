@@ -25,6 +25,7 @@ case class RequestedKeyType(key: Key)                                           
 case class RequestedInstrumentType(instrument: String)                            extends SimpleExpression
 case class RequestedTempoComparison(tempo: Double, operator: Comparator)          extends SimpleExpression
 case class RequestedBarLinesComparison(numBarlines: Double, operator: Comparator) extends SimpleExpression
+case class RequestedTracksComparison(numTracks: Double, operator: Comparator)     extends SimpleExpression
 case class RequestedLyrics(words: List[String])                                   extends SimpleExpression
 case object UnknownSimpleExpression                                               extends SimpleExpression
 

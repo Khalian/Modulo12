@@ -23,6 +23,15 @@ object SongMetadataEvaluator {
       song.metadata.temposBPM.exists(songTempo => Comparator.compare(songTempo, comparator, tempo))
     }
 
+  def filterSongsWithNumTracksComparsion(
+      numTracks: Double,
+      comparator: Comparator,
+      songsToAnalyze: List[Song]
+  ): List[Song] =
+    songsToAnalyze.filter { song =>
+      Comparator.compare(song.metadata.numTracks, comparator, numTracks)
+    }
+
   def filterSongsWithNumBarsComparsion(
       numBars: Double,
       comparator: Comparator,

@@ -31,9 +31,10 @@ trait MusicFileParser {
       .filter(file => fileExtensions().exists(file.getName.endsWith(_)))
       .toList
 
-  def extractSongDataFromListener(listener: SongParserListener): (SongMetadata, SongData) = {
+  protected def extractSongDataFromListener(listener: SongParserListener): (SongMetadata, SongData) = {
     val metadata = SongMetadata(
       listener.numBarLines,
+      listener.numTracks,
       listener.temposBPM.toSet,
       listener.keySignature,
       listener.timeSignature,

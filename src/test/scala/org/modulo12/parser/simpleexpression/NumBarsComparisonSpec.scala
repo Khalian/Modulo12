@@ -43,15 +43,15 @@ class NumBarsComparisonSpec extends AnyFlatSpec with should.Matchers with Inside
     SqlParser.parse("SELECT musicxml FROM resources where numbarlines < 1;") should equal(List())
   }
 
-  it should "return nothing if song num bar lines requested with not equals comparator actually is the requested tempo value" in {
-    SqlParser.parse("SELECT musicxml FROM resources where tempo != 2;") should equal(List())
+  it should "return nothing if song num bar lines requested with not equals comparator actually is the requested value" in {
+    SqlParser.parse("SELECT musicxml FROM resources where numbarlines != 2;") should equal(List())
   }
 
   it should "return nothing if song num bar lines requested is greater or equal to than its value" in {
-    SqlParser.parse("SELECT musicxml FROM resources where tempo >= 3;") should equal(List())
+    SqlParser.parse("SELECT musicxml FROM resources where numbarlines >= 3;") should equal(List())
   }
 
   it should "return nothing if song num bar lines requested is less than or equal to than its value" in {
-    SqlParser.parse("SELECT musicxml FROM resources where tempo != 2;") should equal(List())
+    SqlParser.parse("SELECT musicxml FROM resources where numbarlines <= 0;") should equal(List())
   }
 }
