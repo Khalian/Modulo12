@@ -29,7 +29,7 @@ class MidiParser extends MusicFileParser {
     else
       ParseFileResult.FileNotFound(midiFile.getAbsolutePath)
 
-  override def fileExtensions() = List("mid")
+  override def fileExtensions() = List(".mid")
 
   def parseSongFromMidiSequence(sequence: Sequence): (SongMetadata, SongData) = {
     val listener = new SongParserListener
