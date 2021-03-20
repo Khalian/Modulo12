@@ -11,6 +11,8 @@ object SqlParser {
     val lexer      = new Modulo12Lexer(charStream)
     val tokens     = new CommonTokenStream(lexer)
     val parser     = new Modulo12Parser(tokens)
+    parser.removeErrorListeners()
+    parser.addErrorListener(new SqlParserErrorListener())
 
     val midiParser           = new MidiParser
     val musicXMLParser       = new MusicXMLParser

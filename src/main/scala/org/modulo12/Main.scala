@@ -3,6 +3,7 @@ package org.modulo12
 import org.jline.reader.{ EndOfFileException, LineReaderBuilder, UserInterruptException }
 import org.jline.terminal.{ Terminal, TerminalBuilder }
 import org.jline.utils.{ AttributedStringBuilder, AttributedStyle }
+import org.modulo12.core.InvalidQueryException
 import org.modulo12.sql.SqlParser
 
 import scala.annotation.tailrec
@@ -28,10 +29,11 @@ object Main {
       val songsSatisfyingQuery = SqlParser.parse(query)
       songsSatisfyingQuery.foreach(song => println(song))
     } match {
-      case Success(_)                         =>
-      case Failure(t: UserInterruptException) => exit() // Ctrl C
-      case Failure(t: EndOfFileException)     => exit() // Ctrl D
-      case Failure(t)                         => t.printStackTrace()
+      case Success(_)                          =>
+      case Failure(InvalidQueryException(msg)) => println(msg)
+      case Failure(t: UserInterruptException)  => exit() // Ctrl C
+      case Failure(t: EndOfFileException)      => exit() // Ctrl D
+      case Failure(t)                          => t.printStackTrace()
     }
 
     repl()

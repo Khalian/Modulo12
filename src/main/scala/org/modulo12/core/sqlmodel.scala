@@ -2,6 +2,8 @@ package org.modulo12.core
 
 import java.io.File
 
+case class InvalidQueryException(msg: String) extends Exception(msg)
+
 sealed trait SqlSubQueryResult
 
 // Intermediate and final set of songs (Should I converge the two types?)
