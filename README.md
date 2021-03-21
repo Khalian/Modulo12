@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Khalian/Modulo12.svg?branch=master)](https://travis-ci.org/Khalian/Modulo12) [![Join the chat at https://gitter.im/Khalian/Modulo12](https://badges.gitter.im/Khalian/Modulo12.svg)](https://gitter.im/Khalian/Modulo12?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Modulo12 is a novel structured query language for parsing data and metadata about music (from midi and musicxml files).
+Modulo12 is a novel SQL like language for parsing data and metadata about music (from midi and musicxml files).
 
 The purpose of this language is to query facts about musicxml and midi files based of western music theory (e.g. queries of the form, get all the songs under a directory with a specific key signature or in tempo range) or metadata about the song's specific performance (get all songs that have guitars in it)
 
