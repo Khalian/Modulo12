@@ -11,6 +11,11 @@ object SqlParser {
     val lexer      = new Modulo12Lexer(charStream)
     val tokens     = new CommonTokenStream(lexer)
     val parser     = new Modulo12Parser(tokens)
+
+    // By default antlr injects a console listener, and the way that worked is that it posted
+    // syntax errors onto console and then proceeded to actually try to parse the query.
+    // This bit of code removes that console parser and instead puts a new one that stops execution on
+    // syntax errors
     parser.removeErrorListeners()
     parser.addErrorListener(new SqlParserErrorListener())
 
