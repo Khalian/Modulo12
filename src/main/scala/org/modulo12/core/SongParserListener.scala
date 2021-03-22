@@ -3,7 +3,7 @@ package org.modulo12.core
 import org.jfugue.midi.MidiDictionary
 import org.jfugue.parser.ParserListenerAdapter
 import org.jfugue.theory.{ Chord, Note }
-import org.modulo12.core.{ KeySignature, Scale, TimeSignature }
+import org.modulo12.core.models.{ Key, KeySignature, Scale, TimeSignature }
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer

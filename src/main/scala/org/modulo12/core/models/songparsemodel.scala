@@ -1,6 +1,7 @@
-package org.modulo12.core
+package org.modulo12.core.models
 
-import org.modulo12.core.ParseFileResult.Success
+import org.modulo12.core.models.ParseFileResult.Success
+import org.modulo12.core.models.{ FileType, ParseFileResult, Song }
 
 import java.io.File
 import javax.sound.midi.Sequence

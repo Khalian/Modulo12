@@ -3,6 +3,7 @@ package org.modulo12.core
 import org.scalatest._
 import matchers._
 import flatspec._
+import org.modulo12.core.models.{Comparator, Key, LogicalOperator, Scale}
 import org.modulo12.midi.MidiParser
 
 import java.io.File

@@ -3,7 +3,7 @@ package org.modulo12.sql
 import org.antlr.v4.runtime.atn.ATNConfigSet
 import org.antlr.v4.runtime.dfa.DFA
 import org.antlr.v4.runtime.{ ANTLRErrorListener, Parser, RecognitionException, Recognizer }
-import org.modulo12.core.InvalidQueryException
+import org.modulo12.core.models.InvalidQueryException
 
 import java.util
 

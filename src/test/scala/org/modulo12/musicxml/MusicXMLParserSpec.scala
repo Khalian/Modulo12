@@ -3,8 +3,8 @@ package org.modulo12.musicxml
 import org.scalatest._
 import matchers._
 import flatspec._
-import org.modulo12.core.Scale.MAJOR
-import org.modulo12.core.{FileType, KeySignature, Key, ParseFileResult, Scale, Song, TimeSignature}
+import org.modulo12.core.models.Scale.MAJOR
+import org.modulo12.core.models.{FileType, Key, KeySignature, ParseFileResult, Song}
 
 import java.io.File
 import scala.language.implicitConversions

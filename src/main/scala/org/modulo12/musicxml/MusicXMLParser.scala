@@ -3,15 +3,8 @@ package org.modulo12.musicxml
 import org.jfugue.integration.MusicXmlParser
 import org.jfugue.midi.MidiFileManager
 import nu.xom.ParsingException
-import org.modulo12.core.{
-  FileType,
-  MusicFileParser,
-  ParseFileResult,
-  Song,
-  SongData,
-  SongMetadata,
-  SongParserListener
-}
+import org.modulo12.core.{ MusicFileParser, SongParserListener }
+import org.modulo12.core.models.{ FileType, ParseFileResult, Song }
 
 import java.io.File
 import javax.sound.midi.InvalidMidiDataException

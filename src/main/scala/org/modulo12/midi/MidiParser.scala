@@ -3,16 +3,9 @@ package org.modulo12.midi
 import java.io.File
 import javax.sound.midi.{ InvalidMidiDataException, Sequence }
 import org.jfugue.midi.{ MidiFileManager, MidiParser => JFugueMidiParser }
-import org.modulo12.core.{
-  FileType,
-  MusicFileParser,
-  ParseFileResult,
-  Song,
-  SongData,
-  SongMetadata,
-  SongParserListener
-}
-import org.modulo12.core.ParseFileResult.Success
+import org.modulo12.core.models.{ FileType, ParseFileResult, Song, SongData, SongMetadata }
+import org.modulo12.core.{ MusicFileParser, SongParserListener }
+import org.modulo12.core.models.ParseFileResult.Success
 
 class MidiParser extends MusicFileParser {
   private val parser = new JFugueMidiParser

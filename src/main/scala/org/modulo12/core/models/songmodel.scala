@@ -1,4 +1,4 @@
-package org.modulo12.core
+package org.modulo12.core.models
 
 import org.jfugue.theory.{ Chord, Note }
 

@@ -1,5 +1,7 @@
 package org.modulo12.core
 
+import org.modulo12.core.models.{ Comparator, Key, Scale, Song }
+
 object SongMetadataEvaluator {
   def filtersSongsWithScaleType(requestedScaleType: Scale, songsToAnalyze: List[Song]): List[Song] =
     songsToAnalyze.filter { song =>

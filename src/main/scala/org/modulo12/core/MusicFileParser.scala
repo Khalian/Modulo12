@@ -1,6 +1,7 @@
 package org.modulo12.core
 
-import org.modulo12.core.ParseFileResult.Success
+import org.modulo12.core.models.{ ParseFileResult, Song, SongData, SongMetadata }
+import org.modulo12.core.models.ParseFileResult.Success
 
 import java.io.File
 
@@ -32,7 +33,7 @@ trait MusicFileParser {
       .toList
 
   protected def extractSongDataFromListener(listener: SongParserListener): (SongMetadata, SongData) = {
-    val metadata = SongMetadata(
+    val metadata = models.SongMetadata(
       listener.numBarLines,
       listener.numTracks,
       listener.temposBPM.toSet,

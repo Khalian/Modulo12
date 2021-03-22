@@ -1,12 +1,13 @@
 package org.modulo12.sql
 
 import org.antlr.v4.runtime.{ ANTLRInputStream, CharStreams, CommonTokenStream }
+import org.modulo12.core.models.SqlAST
 import org.modulo12.midi.MidiParser
 import org.modulo12.musicxml.MusicXMLParser
 import org.modulo12.{ Modulo12Lexer, Modulo12Parser }
 
 object SqlParser {
-  def parse(query: String): List[String] = {
+  def parse(query: String): SqlAST = {
     val charStream = CharStreams.fromString(query)
     val lexer      = new Modulo12Lexer(charStream)
     val tokens     = new CommonTokenStream(lexer)
@@ -19,9 +20,6 @@ object SqlParser {
     parser.removeErrorListeners()
     parser.addErrorListener(new SqlParserErrorListener())
 
-    val midiParser           = new MidiParser
-    val musicXMLParser       = new MusicXMLParser
-    val songsSatisfyingQuery = new SqlVisitor(midiParser, musicXMLParser).visitSql_statement(parser.sql_statement())
-    songsSatisfyingQuery.songs.map(song => song.filePath)
+    new SqlVisitor().visitSql_statement(parser.sql_statement())
   }
 }
