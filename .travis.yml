@@ -10,4 +10,8 @@ jdk:
   - openjdk14
 
 script:
-  - sbt -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=256M test
+  - sbt -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=256M clean coverage test coverageReport
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
