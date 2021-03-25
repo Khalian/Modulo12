@@ -1,6 +1,7 @@
 # Modulo12
 
-[![Build Status](https://travis-ci.org/Khalian/Modulo12.svg?branch=master)](https://travis-ci.org/Khalian/Modulo12) [![Join the chat at https://gitter.im/Khalian/Modulo12](https://badges.gitter.im/Khalian/Modulo12.svg)](https://gitter.im/Khalian/Modulo12?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://github.com/Khalian/Modulo12/workflows/Modulo12%20CI/badge.svg)](https://github.com/Khalian/Modulo12/actions?query=workflow%3A"Modulo12+CI") [![Join the chat at https://gitter.im/Khalian/Modulo12](https://badges.gitter.im/Khalian/Modulo12.svg)](https://gitter.im/Khalian/Modulo12?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 Modulo12 is a novel SQL like language for parsing data and metadata about music (from midi and musicxml files).
 
