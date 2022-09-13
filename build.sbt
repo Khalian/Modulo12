@@ -7,10 +7,9 @@ lazy val root = project
     resolvers += "JFugue Repository" at "https://maven.sing-group.org/repository/maven/",
     libraryDependencies += "jfugue"         % "jfugue"    % "5.0.9",
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.5",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.5" % "test",
-    libraryDependencies += "xom" % "xom" % "1.2.5",
-    libraryDependencies += "org.jline" % "jline" % "3.19.0",
-    
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.6" % "test",
+    libraryDependencies += "xom"            % "xom"       % "1.2.5",
+    libraryDependencies += "org.jline"      % "jline"     % "3.19.0",
     scalaVersion := "3.0.0-RC1"
   )
 
