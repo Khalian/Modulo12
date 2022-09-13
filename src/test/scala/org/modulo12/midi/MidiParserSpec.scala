@@ -2,13 +2,13 @@ package org.modulo12.midi
 import org.scalatest._
 import matchers._
 import flatspec._
-import org.modulo12.core.models.{FileType, ParseFileResult, Song, TimeSignature}
+import org.modulo12.core.models.{ FileType, ParseFileResult, Song, TimeSignature }
 
 import java.io.File
 import scala.language.implicitConversions
 
 class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
-  val midiFile = new File("resources/testmidifiles/MIDI_sample.mid")
+  val midiFile   = new File("resources/testmidifiles/MIDI_sample.mid")
   val midiParser = new MidiParser
 
   "parse midi file" should "return FileNotFound for a non exitent file" in {

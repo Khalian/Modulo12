@@ -14,7 +14,9 @@ class NumTracksComparsionSpec extends AnyFlatSpec with should.Matchers with Insi
   }
 
   it should "return song correctly if song's num of tracks is less than requested num of tracks" in {
-    Main.sqlEval("SELECT * FROM resources where numtracks < 6;") should equal(List("musicXMLTest.xml", "MIDI_sample.mid"))
+    Main.sqlEval("SELECT * FROM resources where numtracks < 6;") should equal(
+      List("musicXMLTest.xml", "MIDI_sample.mid")
+    )
   }
 
   it should "return song correctly if song's num of tracks is greater than requested num of tracks" in {
@@ -24,9 +26,11 @@ class NumTracksComparsionSpec extends AnyFlatSpec with should.Matchers with Insi
   it should "return song correctly if song's num of tracks is not equal to requested num of tracks" in {
     Main.sqlEval("SELECT midi FROM resources where numtracks != 2;") should equal(List("MIDI_sample.mid"))
   }
-  
+
   it should "return song correctly if song's num of tracks is less than or equal to requested num of tracks" in {
-    Main.sqlEval("SELECT * FROM resources where numtracks <= 4;") should equal(List("musicXMLTest.xml", "MIDI_sample.mid"))
+    Main.sqlEval("SELECT * FROM resources where numtracks <= 4;") should equal(
+      List("musicXMLTest.xml", "MIDI_sample.mid")
+    )
   }
 
   it should "return song correctly if song's num of tracks is greater than or equal to requested num of tracks" in {

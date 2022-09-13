@@ -26,7 +26,7 @@ class SelectClauseSqlSpec extends AnyFlatSpec with should.Matchers with Inside {
   it should "return midi files in directory with different case of keywords" in {
     Main.sqlEval("SELECT MIDI FROM resources/testmidifiles;") should equal(List("MIDI_sample.mid"))
   }
-  
+
   it should "return music xml files in directory as is if no where clause is present" in {
     Main.sqlEval("select musicxml from resources/testmusicxmlfiles;") should equal(List("musicXMLTest.xml"))
   }
@@ -46,15 +46,15 @@ class SelectClauseSqlSpec extends AnyFlatSpec with should.Matchers with Inside {
   it should "only return midi if only queried for midi" in {
     Main.sqlEval("select Midi FROM resources;") should equal(List("MIDI_sample.mid"))
   }
-  
+
   it should "return all files for wildcard after select clause on correct directory" in {
     Main.sqlEval("select * FROM resources;") should equal(List("musicXMLTest.xml", "MIDI_sample.mid"))
   }
-  
+
   it should "return empty for wildcard after select clause on incorrect directory" in {
     Main.sqlEval("select * FROM incorrectDir;") should equal(List())
   }
-  
+
   it should "be valid syntax if there is a number in the directory" in {
     Main.sqlEval("select * FROM incorrectDir123;") should equal(List())
   }
