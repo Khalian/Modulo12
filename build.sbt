@@ -6,7 +6,7 @@ lazy val root = project
     // Extra Maven repositories
     resolvers += "JFugue Repository" at "https://maven.sing-group.org/repository/maven/",
     libraryDependencies += "jfugue"         % "jfugue"    % "5.0.9",
-    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.5",
+    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.6",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.5" % "test",
     libraryDependencies += "xom"            % "xom"       % "1.2.5",
     libraryDependencies += "org.jline"      % "jline"     % "3.21.0",
