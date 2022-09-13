@@ -4,13 +4,13 @@ import org.scalatest._
 import matchers._
 import flatspec._
 import org.modulo12.core.models.Scale.MAJOR
-import org.modulo12.core.models.{FileType, Key, KeySignature, ParseFileResult, Song}
+import org.modulo12.core.models.{ FileType, Key, KeySignature, ParseFileResult, Song }
 
 import java.io.File
 import scala.language.implicitConversions
 
 class MusicXMLParserSpec extends AnyFlatSpec with should.Matchers with Inside {
-  val musicXMLFile = new File("resources/testmusicxmlfiles/musicXMLTest.xml")
+  val musicXMLFile   = new File("resources/testmusicxmlfiles/musicXMLTest.xml")
   val musicXmlParser = new MusicXMLParser
 
   "parse midi file" should "return FileNotFound for a non exitent file" in {
@@ -26,7 +26,8 @@ class MusicXMLParserSpec extends AnyFlatSpec with should.Matchers with Inside {
   }
 
   "get music xml files under directory" should "return midi files correctly for a valid directory" in {
-    val result = musicXmlParser.getAllFilesUnderDirectory(new File("resources/testmusicxmlfiles")).map(file => file.getName)
+    val result =
+      musicXmlParser.getAllFilesUnderDirectory(new File("resources/testmusicxmlfiles")).map(file => file.getName)
     result should equal(List("musicXMLTest.xml"))
   }
 
@@ -49,7 +50,8 @@ class MusicXMLParserSpec extends AnyFlatSpec with should.Matchers with Inside {
     }
   }
   it should "return empty list invalid directory" in {
-    val result = musicXmlParser.getAllFilesUnderDirectory(new File("resources/invalidDirectory")).map(file => file.getName)
+    val result =
+      musicXmlParser.getAllFilesUnderDirectory(new File("resources/invalidDirectory")).map(file => file.getName)
     result should equal(List())
   }
 }
