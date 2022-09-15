@@ -25,21 +25,20 @@ class MidiParserSpec extends AnyFlatSpec with should.Matchers with Inside {
 
   "parse file" should "parse song correctly for a correct file" in {
     val result = midiParser.parseFile(midiFile)
-    inside(result) {
-      case ParseFileResult.Success(song) =>
-        // TODO: This nees more thorough testing.
-        val Song(songFileName, songMeta, songData) = song
-        songMeta.timeSig should be(Some(TimeSignature(4, 2)))
-        songMeta.instrumentNames should contain allOf ("Electric_Jazz_Guitar", "Piano", "Electric_Bass_Finger")
-        songMeta.temposBPM should be(Set(120))
-        songMeta.keySignature should be(None)
-        songMeta.numBarLines should be(0)
-        songMeta.numTracks should be(4)
+    inside(result) { case ParseFileResult.Success(song) =>
+      // TODO: This nees more thorough testing.
+      val Song(songFileName, songMeta, songData) = song
+      songMeta.timeSig should be(Some(TimeSignature(4, 2)))
+      songMeta.instrumentNames should contain allOf ("Electric_Jazz_Guitar", "Piano", "Electric_Bass_Finger")
+      songMeta.temposBPM should be(Set(120))
+      songMeta.keySignature should be(None)
+      songMeta.numBarLines should be(0)
+      songMeta.numTracks should be(4)
 
-        songData.chords.size should be(0)
-        // TODO: Fix this, it non deterministically fails, not priority until the metadata language is completed
-        // songData.notes.size should be(1651)
-        songData.lyrics.isEmpty should be(true)
+      songData.chords.size should be(0)
+      // TODO: Fix this, it non deterministically fails, not priority until the metadata language is completed
+      // songData.notes.size should be(1651)
+      songData.lyrics.isEmpty should be(true)
     }
   }
 
