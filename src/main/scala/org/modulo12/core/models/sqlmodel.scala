@@ -37,7 +37,7 @@ case class LogicalExpression(
     leftExpr: WhereExpression,
     logicalOperator: LogicalOperator,
     rightExpr: WhereExpression
-) extends WhereExpression
+)                                                                                 extends WhereExpression
 sealed trait SimpleExpression                                                     extends WhereExpression
 case class RequestedScaleType(scaleType: Scale)                                   extends SimpleExpression
 case class RequestedKeyType(key: Key)                                             extends SimpleExpression

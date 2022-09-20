@@ -14,12 +14,11 @@ trait MusicFileParser {
     val files = getAllFilesUnderDirectory(directory)
     val songs = files
       .map(file => (file, parseFile(file)))
-      .flatMap {
-        case (midiFile, song) =>
-          song match {
-            case Success(song) => List(song)
-            case _             => List()
-          }
+      .flatMap { case (midiFile, song) =>
+        song match {
+          case Success(song) => List(song)
+          case _             => List()
+        }
       }
     songs
   }
