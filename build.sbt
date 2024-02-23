@@ -14,11 +14,11 @@ lazy val root = project
   )
 
 enablePlugins(Antlr4Plugin)
-antlr4PackageName in Antlr4 := Some("org.modulo12")
+(Antlr4 / antlr4PackageName) := Some("org.modulo12")
 
 // We wish to use the visitor pattern since we are going to use scala pattern matching for writing the compiler
 // We wish to use the visitor pattern since we are going to use
 // scala pattern matching for writing parts of the evaluation
 // Moreover we need to do this using immutables, so no listeners
-antlr4GenListener in Antlr4 := false
-antlr4GenVisitor in Antlr4 := true
+(Antlr4 / antlr4GenListener) := false
+(Antlr4 / antlr4GenVisitor) := true
